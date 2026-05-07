@@ -1,202 +1,196 @@
-import profile from "./assets/dhanashree.jpg"
+import { useState } from "react";
+import { motion } from "framer-motion";
 
-function App() {
+export default function Portfolio() {
+  const [dark, setDark] = useState(true);
+
+  const projects = [
+    {
+      title: "Cloud-Based Sales Analytics Pipeline",
+      desc: "End-to-end cloud ETL pipeline processing 50,000+ records using AWS and Docker with automated KPI reporting.",
+      tech: "Python, AWS S3, EC2, Docker, Pandas",
+      github: "https://github.com/Dhanashree-pogade/cloud-data-analysis-pipeline.git",
+      live: ""
+    },
+    {
+      title: "AI-Powered Customer Support Chatbot",
+      desc: "NLP-based chatbot with sentiment analysis and intent classification achieving 87% accuracy.",
+      tech: "Python, NLP, Scikit-learn, TF-IDF, Tkinter",
+      github: "https://github.com/Dhanashree-pogade/chatbot.git",
+      live: ""
+    }
+  ];
+
   return (
-    <div className="bg-slate-950 text-white min-h-screen">
+    <div className={dark ? "bg-black text-white min-h-screen" : "bg-white text-black min-h-screen"}>
 
-      {/* Navbar */}
-      <nav className="flex justify-between items-center px-10 py-5 border-b border-slate-800">
+      {/* NAVBAR */}
+      <nav className="flex justify-between items-center p-5 shadow-md">
+        <h1 className="text-xl font-bold">Dhanashree Pogade</h1>
 
-        <h1 className="text-2xl font-bold text-cyan-400">
-          Dhanashree.
-        </h1>
+        <div className="flex gap-4 items-center">
+          <a href="#about" className="hover:underline">About</a>
+          <a href="#skills" className="hover:underline">Skills</a>
+          <a href="#projects" className="hover:underline">Projects</a>
+          <a href="#contact" className="hover:underline">Contact</a>
 
-        <div className="flex gap-6 text-sm">
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          <button
+            onClick={() => setDark(!dark)}
+            className="px-3 py-1 border rounded"
+          >
+            {dark ? "Light" : "Dark"}
+          </button>
         </div>
-
       </nav>
 
+      {/* HERO */}
+      <section className="h-screen flex flex-col justify-center items-center text-center px-6">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-5xl font-bold"
+        >
+          Dhanashree Pogade
+        </motion.h1>
 
-      {/* Hero Section */}
-      <section className="flex flex-col md:flex-row items-center justify-center gap-16 px-10 py-24">
-
-        {/* Left Content */}
-        <div className="text-center md:text-left max-w-2xl">
-
-          <h2 className="text-5xl font-bold leading-tight">
-            Hi, I'm
-            <span className="text-cyan-400"> Dhanashree Pogade</span>
-          </h2>
-
-          <p className="mt-6 text-slate-300 text-lg leading-8">
-            Aspiring Data Analyst & AI/ML Enthusiast passionate about
-            machine learning, cloud technologies, data analytics,
-            and solving real-world business problems.
-          </p>
-
-          <div className="mt-8 flex gap-4 justify-center md:justify-start">
-
-            <a
-              href="https://github.com/"
-              target="_blank"
-              className="bg-cyan-500 px-6 py-3 rounded-xl font-semibold hover:bg-cyan-600 transition"
-            >
-              GitHub
-            </a>
-
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              className="border border-cyan-400 px-6 py-3 rounded-xl hover:bg-cyan-500 hover:text-black transition"
-            >
-              LinkedIn
-            </a>
-
-          </div>
-
-        </div>
-
-
-        {/* Profile Image */}
-        <div>
-
-          <img
-            src={profile}
-            alt="Dhanashree"
-            className="w-80 h-80 object-cover rounded-full border-4 border-cyan-400 shadow-2xl"
-          />
-
-        </div>
-
-      </section>
-
-
-      {/* About */}
-      <section id="about" className="px-10 py-20">
-
-        <h3 className="text-3xl font-bold text-cyan-400 mb-6">
-          About Me
-        </h3>
-
-        <p className="text-slate-300 leading-8 max-w-4xl">
-          Results-driven B.Tech Data Science graduate with hands-on
-          experience in machine learning, NLP, AWS cloud solutions,
-          and data analytics. Passionate about solving real-world
-          business problems using data-driven insights and scalable
-          AI solutions.
+        <p className="mt-3 text-lg opacity-80">
+          Data Science Graduate | AI-ML Enthusiast | Data Analyst Aspirant
         </p>
 
+        <p className="mt-2 text-sm opacity-60">
+          Yavatmal, Maharashtra | dhanashreepogade7@gmail.com | 7385291331
+        </p>
+
+        {/* ACTION BUTTONS */}
+        <div className="mt-6 flex gap-4">
+          <a
+            href="#contact"
+            className="px-5 py-2 bg-blue-600 text-white rounded"
+          >
+            Connect
+          </a>
+
+          {/* DOWNLOAD RESUME BUTTON WITH ICON + ANIMATION */}
+          <motion.a
+            href="/resume.pdf"
+            download
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-5 py-2 border rounded"
+          >
+            {/* Download Icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14"
+              />
+            </svg>
+
+            Download Resume
+          </motion.a>
+        </div>
       </section>
 
+      {/* ABOUT */}
+      <section id="about" className="p-10 text-center">
+        <h2 className="text-3xl font-bold">About Me</h2>
+        <p className="mt-4 max-w-3xl mx-auto opacity-80">
+          Results-driven B.Tech Data Science graduate (2025, CGPA: 8.75/10) with hands-on experience
+          in machine learning models, data automation tools, and cloud-based solutions.
+          Achieved 95%+ model accuracy during internship processing 10,000+ security records.
+          Built 3+ end-to-end projects reducing manual reporting effort by up to 60%.
+        </p>
+      </section>
 
-      {/* Skills */}
-      <section id="skills" className="px-10 py-20 bg-slate-900">
+      {/* SKILLS */}
+      <section id="skills" className="p-10 text-center">
+        <h2 className="text-3xl font-bold">Technical Skills</h2>
 
-        <h3 className="text-3xl font-bold text-cyan-400 mb-10">
-          Skills
-        </h3>
+        <div className="mt-6 grid md:grid-cols-3 gap-4">
+          <div className="border p-4 rounded">Python, Pandas, NumPy, Scikit-learn, SQL</div>
+          <div className="border p-4 rounded">Power BI, Excel, Matplotlib, Seaborn</div>
+          <div className="border p-4 rounded">AWS (EC2, S3, ELB), Docker, Git, Linux</div>
+        </div>
+      </section>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* EXPERIENCE */}
+      <section className="p-10">
+        <h2 className="text-3xl font-bold text-center">Internship Experience</h2>
 
-          {[
-            'Python',
-            'SQL',
-            'Machine Learning',
-            'Power BI',
-            'AWS',
-            'Docker',
-            'Pandas',
-            'Data Analytics'
-          ].map((skill) => (
-            <div
-              key={skill}
-              className="bg-slate-800 p-5 rounded-2xl text-center hover:scale-105 transition"
+        <div className="mt-6 border p-5 rounded-xl">
+          <h3 className="text-xl font-bold">Data Science Intern - Codtech IT Solutions</h3>
+          <p className="opacity-70">Mar 2025 – Jun 2025</p>
+
+          <ul className="mt-3 list-disc ml-6 space-y-2">
+            <li>Processed 10,000+ security records using Python & SQL, reducing 30% inconsistencies.</li>
+            <li>Built ML anomaly detection models achieving 95% accuracy.</li>
+            <li>Automated EDA reporting, reducing manual analysis time by 50%.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section id="projects" className="p-10">
+        <h2 className="text-3xl font-bold text-center">Projects</h2>
+
+        <div className="grid md:grid-cols-2 gap-6 mt-8">
+          {projects.map((p, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.03 }}
+              className="p-5 border rounded-xl shadow-lg"
             >
-              {skill}
-            </div>
+              <h3 className="text-xl font-bold">{p.title}</h3>
+              <p className="mt-2 opacity-80">{p.desc}</p>
+              <p className="mt-2 text-sm opacity-60">{p.tech}</p>
+
+              <div className="flex gap-3 mt-4">
+                <a href={p.github} target="_blank" className="px-3 py-1 border rounded">
+                  GitHub
+                </a>
+              </div>
+            </motion.div>
           ))}
-
         </div>
-
       </section>
 
-
-      {/* Projects */}
-      <section id="projects" className="px-10 py-20">
-
-        <h3 className="text-3xl font-bold text-cyan-400 mb-10">
-          Projects
-        </h3>
-
-        <div className="grid md:grid-cols-2 gap-8">
-
-          <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-
-            <h4 className="text-2xl font-bold mb-4">
-              Cloud-Based Sales Analytics Pipeline
-            </h4>
-
-            <p className="text-slate-300 leading-7">
-              Built a cloud-based analytics pipeline using AWS,
-              Docker, Python, and ETL workflows for automated
-              reporting and business KPI analysis.
-            </p>
-
-          </div>
-
-
-          <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-
-            <h4 className="text-2xl font-bold mb-4">
-              AI-Powered Customer Support Chatbot
-            </h4>
-
-            <p className="text-slate-300 leading-7">
-              Developed an NLP-based chatbot using TF-IDF,
-              sentiment analysis, and machine learning for
-              intelligent automated responses.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* Contact */}
-      <section id="contact" className="px-10 py-20 bg-slate-900 text-center">
-
-        <h3 className="text-3xl font-bold text-cyan-400 mb-6">
-          Contact
-        </h3>
-
-        <p className="text-slate-300 mb-4">
-          dhanashreepogade7@gmail.com
+      {/* EDUCATION */}
+      <section className="p-10 text-center">
+        <h2 className="text-3xl font-bold">Education</h2>
+        <p className="mt-4">
+          B.Tech Data Science - Ajeenkya D Y Patil University (CGPA: 8.75)
         </p>
-
-        <p className="text-slate-300 mb-8">
-          Maharashtra, India
-        </p>
-
-        <button className="bg-cyan-500 px-8 py-3 rounded-xl font-semibold hover:bg-cyan-600 transition">
-          Let's Connect
-        </button>
-
+        <p>HSC - 83.33%</p>
       </section>
 
+      {/* CERTIFICATIONS */}
+      <section className="p-10 text-center">
+        <h2 className="text-3xl font-bold">Certifications</h2>
+        <p className="mt-4">Infosys Springboard: Python, SQL, Data Visualization, Database</p>
+      </section>
 
-      {/* Footer */}
-      <footer className="text-center py-6 border-t border-slate-800 text-slate-500">
-        © 2026 Dhanashree Pogade
+      {/* CONTACT */}
+      <section id="contact" className="p-10 text-center">
+        <h2 className="text-3xl font-bold">Contact</h2>
+
+        <p className="mt-4">Email: dhanashreepogade7@gmail.com</p>
+        <p>Phone: 7385291331</p>
+        <p>Location: Yavatmal, Maharashtra</p>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="p-5 text-center text-sm opacity-60">
+        Built with React + Tailwind | Deployed on Netlify
       </footer>
 
     </div>
-  )
+  );
 }
-
-export default App
