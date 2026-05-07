@@ -45,17 +45,20 @@ export default function Portfolio() {
   const navItem = (id, label) => (
     <a
       href={`#${id}`}
-      className={`hover:text-blue-400 transition ${active === id ? "text-blue-400 font-bold" : ""}`}
+      className={`hover:text-cyan-400 transition ${active === id ? "text-cyan-400 font-bold" : ""}`}
     >
       {label}
     </a>
   );
 
+  const cardStyle =
+    "p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-cyan-500/20 transition";
+
   return (
-    <div className={dark ? "bg-gradient-to-br from-black via-gray-900 to-black text-white min-h-screen scroll-smooth" : "bg-gradient-to-br from-white via-gray-100 to-white text-black min-h-screen scroll-smooth"}>
+    <div className={dark ? "bg-black text-white min-h-screen scroll-smooth" : "bg-white text-black min-h-screen scroll-smooth"}>
 
       {/* NAVBAR */}
-      <nav className="flex justify-between items-center p-5 sticky top-0 z-50 backdrop-blur-md bg-opacity-40 border-b">
+      <nav className="flex justify-between items-center p-5 sticky top-0 z-50 backdrop-blur-xl bg-black/40 border-b border-white/10">
         <h1 className="text-xl font-bold tracking-wide">Dhanashree Pogade</h1>
 
         <div className="flex gap-5 text-sm items-center">
@@ -67,7 +70,7 @@ export default function Portfolio() {
 
           <button
             onClick={() => setDark(!dark)}
-            className="px-3 py-1 border rounded hover:scale-105 transition"
+            className="px-3 py-1 border border-white/20 rounded hover:scale-105 transition"
           >
             {dark ? "Light" : "Dark"}
           </button>
@@ -75,10 +78,10 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-      <section id="home" className="h-screen flex flex-col justify-center items-center text-center px-6 relative">
+      <section id="home" className="h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
 
-        <div className="absolute w-72 h-72 bg-blue-500 blur-3xl opacity-30 rounded-full top-20 left-20 animate-pulse"></div>
-        <div className="absolute w-72 h-72 bg-purple-500 blur-3xl opacity-30 rounded-full bottom-20 right-20 animate-pulse"></div>
+        <div className="absolute w-80 h-80 bg-cyan-500 blur-3xl opacity-20 rounded-full top-10 left-10 animate-pulse"></div>
+        <div className="absolute w-80 h-80 bg-purple-500 blur-3xl opacity-20 rounded-full bottom-10 right-10 animate-pulse"></div>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -92,55 +95,50 @@ export default function Portfolio() {
           Data Science Graduate | AI-ML Enthusiast | Data Analyst Aspirant
         </p>
 
-        <div className="flex gap-5 mt-4 text-sm z-10">
-          <a href="https://github.com/Dhanashree-pogade" target="_blank" className="hover:text-blue-400">GitHub</a>
-          <a href="https://www.linkedin.com/in/your-profile" target="_blank" className="hover:text-blue-400">LinkedIn</a>
-          <a href="mailto:dhanashreepogade7@gmail.com" className="hover:text-blue-400">Email</a>
-        </div>
+        {/* SOCIAL CARDS */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 z-10">
 
-        <div className="mt-6 flex gap-4 z-10">
-          <a href="#contact" className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition">
-            Connect
+          <a href="https://github.com/Dhanashree-pogade" target="_blank" className={cardStyle}>
+            🐙 GitHub
           </a>
 
-          <motion.a
-            href="/resume.pdf"
-            download
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-5 py-2 border rounded flex items-center gap-2"
-          >
-            📄 Download Resume
-          </motion.a>
+          <a href="https://www.linkedin.com/in/dhanashree-pogade-551761228/" target="_blank" className={cardStyle}>
+            💼 LinkedIn
+          </a>
+
+          <a href="mailto:dhanashreepogade7@gmail.com" className={cardStyle}>
+            📧 Email
+          </a>
+
+          <a href="/resume.pdf" download className={cardStyle}>
+            📄 Resume
+          </a>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-8 flex gap-4 z-10">
+          <a href="#contact" className="px-6 py-2 bg-cyan-500 text-black font-semibold rounded-xl hover:scale-105 transition">
+            Connect
+          </a>
         </div>
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="p-14 text-center">
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-          <h2 className="text-3xl font-bold mb-4">About Me</h2>
-          <p className="max-w-3xl mx-auto opacity-80">
-            Results-driven B.Tech Data Science graduate with strong ML, AI, and cloud experience.
-            Built real-world systems reducing manual work by up to 60% and achieving 95%+ accuracy.
-          </p>
-        </motion.div>
+      <section id="about" className="p-16 text-center">
+        <h2 className="text-3xl font-bold mb-4">About Me</h2>
+        <p className="max-w-3xl mx-auto opacity-80">
+          Results-driven B.Tech Data Science graduate with hands-on experience in ML, AI, and cloud systems.
+          Built real-world pipelines processing 10,000+ records and achieved 95%+ model accuracy.
+        </p>
       </section>
 
       {/* SKILLS */}
-      <section id="skills" className="p-14 text-center">
+      <section id="skills" className="p-16 text-center">
         <h2 className="text-3xl font-bold mb-6">Skills</h2>
 
         <div className="grid md:grid-cols-3 gap-4">
-          {[
-            "Python | SQL | Pandas",
-            "Power BI | Excel | Visualization",
-            "AWS | Docker | Git"
-          ].map((s, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.05 }}
-              className="p-5 rounded-xl border bg-white/5 backdrop-blur-md"
-            >
+          {["Python | SQL | Pandas", "Power BI | Excel | Visualization", "AWS | Docker | Git"].map((s, i) => (
+            <motion.div key={i} whileHover={{ scale: 1.05 }} className={cardStyle}>
               {s}
             </motion.div>
           ))}
@@ -148,44 +146,38 @@ export default function Portfolio() {
       </section>
 
       {/* PROJECTS */}
-      <section id="projects" className="p-14">
-        <h2 className="text-3xl font-bold text-center mb-8">Projects</h2>
+      <section id="projects" className="p-16">
+        <h2 className="text-3xl font-bold text-center mb-10">Projects</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((p, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.05 }}
-              className="p-5 rounded-xl border bg-white/5 backdrop-blur-md"
-            >
+            <motion.div key={i} whileHover={{ scale: 1.05 }} className={cardStyle}>
               <h3 className="text-xl font-bold">{p.title}</h3>
               <p className="mt-2 opacity-80">{p.desc}</p>
               <p className="mt-2 text-sm opacity-60">{p.tech}</p>
 
-              <div className="flex gap-3 mt-4">
-                <a href={p.github} target="_blank" className="px-3 py-1 border rounded hover:bg-blue-600 transition">
-                  GitHub
-                </a>
-              </div>
+              <a href={p.github} target="_blank" className="inline-block mt-4 px-3 py-1 border rounded hover:bg-cyan-500">
+                GitHub
+              </a>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="p-14 text-center">
+      <section id="contact" className="p-16 text-center">
         <h2 className="text-3xl font-bold">Let’s Connect</h2>
 
-        <div className="mt-4 flex flex-col gap-2">
-          <a href="mailto:dhanashreepogade7@gmail.com" className="hover:text-blue-400">Email</a>
-          <a href="https://github.com/Dhanashree-pogade" target="_blank" className="hover:text-blue-400">GitHub</a>
-          <a href="https://www.linkedin.com/in/dhanashree-pogade-551761228/" target="_blank" className="hover:text-blue-400">LinkedIn</a>
+        <div className="mt-6 grid md:grid-cols-3 gap-4">
+          <div className={cardStyle}>📧 dhanashreepogade7@gmail.com</div>
+          <div className={cardStyle}>🐙 GitHub: Dhanashree-pogade</div>
+          <div className={cardStyle}>💼 LinkedIn Profile</div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="p-5 text-center text-sm opacity-60">
-        Built with React + Tailwind | Deployed on Netlify
+      <footer className="p-6 text-center text-sm opacity-60">
+        Built with React + Tailwind | Designed for impact 🚀
       </footer>
 
     </div>
