@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Portfolio() {
   const [dark, setDark] = useState(true);
+  const [active, setActive] = useState("home");
 
   const projects = [
     {
@@ -21,22 +22,52 @@ export default function Portfolio() {
     }
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "about", "skills", "projects", "contact"];
+      let current = "home";
+
+      sections.forEach((sec) => {
+        const el = document.getElementById(sec);
+        if (el) {
+          const top = el.getBoundingClientRect().top;
+          if (top <= 150) current = sec;
+        }
+      });
+
+      setActive(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navItem = (id, label) => (
+    <a
+      href={`#${id}`}
+      className={`hover:text-blue-400 transition ${active === id ? "text-blue-400 font-bold" : ""}`}
+    >
+      {label}
+    </a>
+  );
+
   return (
-    <div className={dark ? "bg-black text-white min-h-screen" : "bg-white text-black min-h-screen"}>
+    <div className={dark ? "bg-gradient-to-br from-black via-gray-900 to-black text-white min-h-screen scroll-smooth" : "bg-gradient-to-br from-white via-gray-100 to-white text-black min-h-screen scroll-smooth"}>
 
       {/* NAVBAR */}
-      <nav className="flex justify-between items-center p-5 shadow-md">
-        <h1 className="text-xl font-bold">Dhanashree Pogade</h1>
+      <nav className="flex justify-between items-center p-5 sticky top-0 z-50 backdrop-blur-md bg-opacity-40 border-b">
+        <h1 className="text-xl font-bold tracking-wide">Dhanashree Pogade</h1>
 
-        <div className="flex gap-4 items-center">
-          <a href="#about" className="hover:underline">About</a>
-          <a href="#skills" className="hover:underline">Skills</a>
-          <a href="#projects" className="hover:underline">Projects</a>
-          <a href="#contact" className="hover:underline">Contact</a>
+        <div className="flex gap-5 text-sm items-center">
+          {navItem("home", "Home")}
+          {navItem("about", "About")}
+          {navItem("skills", "Skills")}
+          {navItem("projects", "Projects")}
+          {navItem("contact", "Contact")}
 
           <button
             onClick={() => setDark(!dark)}
-            className="px-3 py-1 border rounded"
+            className="px-3 py-1 border rounded hover:scale-105 transition"
           >
             {dark ? "Light" : "Dark"}
           </button>
@@ -44,116 +75,95 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-      <section className="h-screen flex flex-col justify-center items-center text-center px-6">
+      <section id="home" className="h-screen flex flex-col justify-center items-center text-center px-6 relative">
+
+        <div className="absolute w-72 h-72 bg-blue-500 blur-3xl opacity-30 rounded-full top-20 left-20 animate-pulse"></div>
+        <div className="absolute w-72 h-72 bg-purple-500 blur-3xl opacity-30 rounded-full bottom-20 right-20 animate-pulse"></div>
+
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold"
+          className="text-5xl font-bold z-10"
         >
           Dhanashree Pogade
         </motion.h1>
 
-        <p className="mt-3 text-lg opacity-80">
+        <p className="mt-3 text-lg opacity-80 z-10">
           Data Science Graduate | AI-ML Enthusiast | Data Analyst Aspirant
         </p>
 
-        <p className="mt-2 text-sm opacity-60">
-          Yavatmal, Maharashtra | dhanashreepogade7@gmail.com | 7385291331
-        </p>
+        <div className="flex gap-5 mt-4 text-sm z-10">
+          <a href="https://github.com/Dhanashree-pogade" target="_blank" className="hover:text-blue-400">GitHub</a>
+          <a href="https://www.linkedin.com/in/your-profile" target="_blank" className="hover:text-blue-400">LinkedIn</a>
+          <a href="mailto:dhanashreepogade7@gmail.com" className="hover:text-blue-400">Email</a>
+        </div>
 
-        {/* ACTION BUTTONS */}
-        <div className="mt-6 flex gap-4">
-          <a
-            href="#contact"
-            className="px-5 py-2 bg-blue-600 text-white rounded"
-          >
+        <div className="mt-6 flex gap-4 z-10">
+          <a href="#contact" className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition">
             Connect
           </a>
 
-          {/* DOWNLOAD RESUME BUTTON WITH ICON + ANIMATION */}
           <motion.a
             href="/resume.pdf"
             download
-            whileHover={{ scale: 1.08 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-5 py-2 border rounded"
+            className="px-5 py-2 border rounded flex items-center gap-2"
           >
-            {/* Download Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14"
-              />
-            </svg>
-
-            Download Resume
+            📄 Download Resume
           </motion.a>
         </div>
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="p-10 text-center">
-        <h2 className="text-3xl font-bold">About Me</h2>
-        <p className="mt-4 max-w-3xl mx-auto opacity-80">
-          Results-driven B.Tech Data Science graduate (2025, CGPA: 8.75/10) with hands-on experience
-          in machine learning models, data automation tools, and cloud-based solutions.
-          Achieved 95%+ model accuracy during internship processing 10,000+ security records.
-          Built 3+ end-to-end projects reducing manual reporting effort by up to 60%.
-        </p>
+      <section id="about" className="p-14 text-center">
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+          <h2 className="text-3xl font-bold mb-4">About Me</h2>
+          <p className="max-w-3xl mx-auto opacity-80">
+            Results-driven B.Tech Data Science graduate with strong ML, AI, and cloud experience.
+            Built real-world systems reducing manual work by up to 60% and achieving 95%+ accuracy.
+          </p>
+        </motion.div>
       </section>
 
       {/* SKILLS */}
-      <section id="skills" className="p-10 text-center">
-        <h2 className="text-3xl font-bold">Technical Skills</h2>
+      <section id="skills" className="p-14 text-center">
+        <h2 className="text-3xl font-bold mb-6">Skills</h2>
 
-        <div className="mt-6 grid md:grid-cols-3 gap-4">
-          <div className="border p-4 rounded">Python, Pandas, NumPy, Scikit-learn, SQL</div>
-          <div className="border p-4 rounded">Power BI, Excel, Matplotlib, Seaborn</div>
-          <div className="border p-4 rounded">AWS (EC2, S3, ELB), Docker, Git, Linux</div>
-        </div>
-      </section>
-
-      {/* EXPERIENCE */}
-      <section className="p-10">
-        <h2 className="text-3xl font-bold text-center">Internship Experience</h2>
-
-        <div className="mt-6 border p-5 rounded-xl">
-          <h3 className="text-xl font-bold">Data Science Intern - Codtech IT Solutions</h3>
-          <p className="opacity-70">Mar 2025 – Jun 2025</p>
-
-          <ul className="mt-3 list-disc ml-6 space-y-2">
-            <li>Processed 10,000+ security records using Python & SQL, reducing 30% inconsistencies.</li>
-            <li>Built ML anomaly detection models achieving 95% accuracy.</li>
-            <li>Automated EDA reporting, reducing manual analysis time by 50%.</li>
-          </ul>
+        <div className="grid md:grid-cols-3 gap-4">
+          {[
+            "Python | SQL | Pandas",
+            "Power BI | Excel | Visualization",
+            "AWS | Docker | Git"
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.05 }}
+              className="p-5 rounded-xl border bg-white/5 backdrop-blur-md"
+            >
+              {s}
+            </motion.div>
+          ))}
         </div>
       </section>
 
       {/* PROJECTS */}
-      <section id="projects" className="p-10">
-        <h2 className="text-3xl font-bold text-center">Projects</h2>
+      <section id="projects" className="p-14">
+        <h2 className="text-3xl font-bold text-center mb-8">Projects</h2>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        <div className="grid md:grid-cols-2 gap-6">
           {projects.map((p, i) => (
             <motion.div
               key={i}
-              whileHover={{ scale: 1.03 }}
-              className="p-5 border rounded-xl shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              className="p-5 rounded-xl border bg-white/5 backdrop-blur-md"
             >
               <h3 className="text-xl font-bold">{p.title}</h3>
               <p className="mt-2 opacity-80">{p.desc}</p>
               <p className="mt-2 text-sm opacity-60">{p.tech}</p>
 
               <div className="flex gap-3 mt-4">
-                <a href={p.github} target="_blank" className="px-3 py-1 border rounded">
+                <a href={p.github} target="_blank" className="px-3 py-1 border rounded hover:bg-blue-600 transition">
                   GitHub
                 </a>
               </div>
@@ -162,28 +172,15 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* EDUCATION */}
-      <section className="p-10 text-center">
-        <h2 className="text-3xl font-bold">Education</h2>
-        <p className="mt-4">
-          B.Tech Data Science - Ajeenkya D Y Patil University (CGPA: 8.75)
-        </p>
-        <p>HSC - 83.33%</p>
-      </section>
-
-      {/* CERTIFICATIONS */}
-      <section className="p-10 text-center">
-        <h2 className="text-3xl font-bold">Certifications</h2>
-        <p className="mt-4">Infosys Springboard: Python, SQL, Data Visualization, Database</p>
-      </section>
-
       {/* CONTACT */}
-      <section id="contact" className="p-10 text-center">
-        <h2 className="text-3xl font-bold">Contact</h2>
+      <section id="contact" className="p-14 text-center">
+        <h2 className="text-3xl font-bold">Let’s Connect</h2>
 
-        <p className="mt-4">Email: dhanashreepogade7@gmail.com</p>
-        <p>Phone: 7385291331</p>
-        <p>Location: Yavatmal, Maharashtra</p>
+        <div className="mt-4 flex flex-col gap-2">
+          <a href="mailto:dhanashreepogade7@gmail.com" className="hover:text-blue-400">Email</a>
+          <a href="https://github.com/Dhanashree-pogade" target="_blank" className="hover:text-blue-400">GitHub</a>
+          <a href="https://www.linkedin.com/in/dhanashree-pogade-551761228/" target="_blank" className="hover:text-blue-400">LinkedIn</a>
+        </div>
       </section>
 
       {/* FOOTER */}
